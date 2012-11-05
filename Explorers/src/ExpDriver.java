@@ -26,7 +26,13 @@ public class ExpDriver {
 		System.out.print("\nEnter username: ");
 		String username = scan.next();
 
-		Explorer exp = ds.getExplorer(username);
+		Explorer exp = null;
+		try {
+			exp = ds.getExplorer(username);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		// describe the explorer
 		if (exp != null)
@@ -37,14 +43,19 @@ public class ExpDriver {
 		/*****************/
 		/* Play the game */
 		/*****************/
-
+		System.out.println(exp.getRoomNum());
 		// move through all of the rooms
 		while (exp.getRoomNum() != END_ROOM) {
+
 			// describe the explorer's room
 			System.out.println(ds.getRoomDescr(exp.getRoomNum()));
+			System.out.println("Move Forward? y/n");
 
-			// move the explorer to the next room
-			ds.move(exp);
+			if (scan.next() == "y") {
+				// move the explorer to the next room
+				ds.move(exp);
+			}
+
 		}
 
 		// close the data source
